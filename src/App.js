@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState,useEffect } from "react";
+import Checkboxes from "./Checkboxes";
+import Radio from "./Radio";
+import Range from "./Range";
 
 function App() {
+  const [name, setName] = useState("");
+  const [family, setFamily] = useState("");
+  const [gender, setGender] = useState("");
+  const [range, setRange] = useState("");
+  const [show, setShow] = useState(true);
+
+  const [ckeckboxValues,SetCkeckboxValues] = useState([])
+  const nameHandler = (e) => {
+    setName(e.target.value);
+
+  };
+
+
+  useEffect(()=>{
+    console.log("useEffect runs")
+    
+  },[family])
+
+
+
+  const familyHandler = (e) => {
+    setFamily(e.target.value);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <label>name:</label>
+      <input type="text" value={name} onChange={nameHandler} />
+      <label>family:</label>
+      <input type="text" value={family} onChange={familyHandler} />
+      <h1>
+        input:{name}
+        {family}
+      </h1>
+     <button onClick={()=>setShow(!show)}>click</button>
+      <Checkboxes SetCkeckboxValues={SetCkeckboxValues} ckeckboxValues={ckeckboxValues} />
+      <Radio gender={gender} setGender={setGender}/>
+        {show?<Range range={range}  setRange={setRange}/>:<p>please click to show range input</p>}
     </div>
   );
 }
